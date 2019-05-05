@@ -23,6 +23,27 @@
   color: #61dafb;
 }
 
+.loader{
+  display: flex;
+  width:60px;
+  height: 60px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border:12px solid whitesmoke;
+  border-radius: 50%;
+  border-top: 12px solid blue;
+  animation: spin 2s infinite;
+}
+
+@keyframes spin{
+  from{
+    transform: rotate(0deg)
+  }
+  to{
+    transform: rotate(360deg)
+  }
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
