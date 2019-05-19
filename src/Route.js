@@ -28,17 +28,32 @@ function componentDidMount(){
     /*
         mock the api using the following command
         json-server --watch db.json -d 1000
+        {
+        "id": 2,
+        "username":"shaana",
+        "role":"user",
+        "dob":"19-03-1996"
+      },
     */
     const url = 'http://localhost:5000/users';
+    const {store:{updateState}} = this.props;
     fetch(url,{
         headers:{
             method:'GET'
         }
     }).then(res =>res.json()).then(data =>{
-        const {store:{updateState}} = this.props;
         updateState('users',data)
         this.props.setLoggedIn(data[0]);
     });
+    const data = [{
+        "id": 2,
+        "username":"shaana",
+        "role":"user",
+        "dob":"19-03-1996"
+      }];
+    updateState('users',data);
+    this.props.setLoggedIn(data[0]);
+
 }
 
 export default compose(
