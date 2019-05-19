@@ -1,0 +1,62 @@
+@import 'reset';
+body{
+    font:100% Helvetica sans-serif;
+    background-color:#383131;
+}
+
+@mixin transform($property) {
+    -webkit-transform: $property;
+    -ms-transform: $property;
+    transform: $property;
+}
+
+%equal-heights {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+%full-size{
+    width: 100%;
+    height: 100%;
+}
+
+.flex-equal{
+    @extend %equal-heights;
+   div{
+    margin:2vh;
+   }
+}
+
+%message-shared {
+    border: 1px solid #ccc;
+    padding: 10px;
+    color: #333;
+    background-color: red;
+}
+
+.message{
+    @extend %message-shared;
+}
+
+.success{
+    @extend %message-shared ,%full-size;
+    border-color: green;
+    &:hover{
+        width: 0%;
+        height: 0%;
+        color: white;
+        border-color: white;
+        background-color: white;
+    }
+}
+
+.error{
+    @extend %message-shared;
+    border-color: red;
+}
+
+.warning {
+    @extend %message-shared;
+    border-color: yellow;
+}
+

@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from './Header';
-
+import {Redirect} from 'react-router-dom';
 function Can(WrappedComponent){
     return class extends React.Component{
         render(){
@@ -14,10 +14,7 @@ function Can(WrappedComponent){
                 )
             return (
                 <React.Fragment>
-                    <Header loggedInUser={loggedInUser} />
-                    <div style={{
-                        marginTop:'10%'
-                    }}>You don't have access to view this </div>
+                    <Redirect to="/" />
                 </React.Fragment>
             )
         }

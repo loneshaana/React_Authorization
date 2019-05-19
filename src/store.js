@@ -3,20 +3,43 @@ const Store = React.createContext();
 
 
 const createStore = () =>{
-  
      return class extends React.Component{
          state ={
-            Author:"Anwarulhaq"
+            Author:"Anwarulhaq",
+            users:[],
+            isChecked:undefined
          }
 
-         updateState = (...obj) =>{
-             if(obj instanceof Array){
+         updateState = (key ,value) =>{
                 this.setState(prevState =>{
-                    const key =obj[0];
-                    const value = obj[1];
                     return {[key] : value};
                 });
-             }
+         }
+
+         filterOnDob =({target}) =>{
+            if(target.checked)
+            {
+                const users = this.state.users;
+                const data = users.sort(function(a,b){
+                    return a.dob > b.dob;
+                });
+                this.setState({users:data,isChecked:'dob'});
+            }else{
+                this.setState({isChecked:undefined})
+            }
+         }
+
+         filterOnName = ({target}) =>{
+             if(target.checked)
+                {
+                    const users = this.state.users;
+                    const data = users.sort(function(a,b){
+                        return a.username > b.username;
+                    });
+                    this.setState({users:data,isChecked:'name'});
+                }else{
+                    this.setState({isChecked:undefined})
+                }
          }
 
          readOnly = () =>{
@@ -33,7 +56,9 @@ const createStore = () =>{
                 store:{
                     state:this.state,
                     updateState:this.updateState,
-                    readOnly:this.readOnly
+                    readOnly:this.readOnly,
+                    filterOnDob:this.filterOnDob,
+                    filterOnName:this.filterOnName
                 }
             }}>
                     <Store.Consumer>

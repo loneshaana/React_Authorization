@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './style.scss'
 import Routes from './Route';
 import * as serviceWorker from './serviceWorker';
 import createStore from './store';

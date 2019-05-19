@@ -3,12 +3,38 @@
       {
         "id": 2,
         "username":"shaana",
-        "role":"user"
+        "role":"user",
+        "dob":"19-03-1996"
       },
       {
         "id": 1,
         "username": "anwarulhaq",
-        "role":"admin"
+        "role":"admin",
+        "dob":"23-09-1991"
+      },
+      {
+        "id": 3,
+        "username": "lone",
+        "role":"admin",
+        "dob":"01-03-1994"
+      },
+      {
+        "id": 3,
+        "username": "farooq",
+        "role":"user",
+        "dob":"01-04-1993"
+      },
+      {
+        "id": 4,
+        "username": "majid",
+        "role":"admin",
+        "dob":"05-05-1992"
+      },
+      {
+        "id": 5,
+        "username": "Ahsan",
+        "role":"user",
+        "dob":"04-10-1993"
       }
     ]
   }

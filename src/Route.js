@@ -5,47 +5,18 @@ import User from './user';
 import Header from './Header';
 import Route from './CustomRoute';
 import Loader from './loader';
+import {lifecycle,withState,compose} from 'recompose';
 import './App.css';
 
 class Routes extends React.Component{
-    componentDidMount(){
-        /*
-            mock the api using the following command
-            json-server --watch db.json -d 1000
-        */
-        const url = 'http://localhost:5000/users';
-        fetch(url,{
-            headers:{
-                method:'GET'
-            }
-        }).then(res =>res.json()).then(data =>{
-            const {store:{updateState}} = this.props;
-            updateState('users',data)
-        });
-    }
-
-
     render(){
-        const {store:{state:{users}}} = this.props;
-        if(users === undefined || users.length === 0 )return <Loader />;
-        const loggedInUser = users[users.length -2];
-        /*
-            Expirementing with react state
-        */
-        // const rou = this.props.store.readOnly();
-        // rou.Author = "Shaana";
-        // users[0].username= 'something';
-        // rou.users[0].username = 'Anwar';
-        // rou.users[0].role = 'admin';
-        // console.log(rou);
-        // console.log(users)
-        
-
+        const {loggedInUser} = this.props;
+        if(loggedInUser === undefined ) return <Loader />;
         return(
             <BrowserRouter>
                 <Switch>
-                    <Route path="/admin" component={Admin} loggedInUser={loggedInUser} roles={["admin"]} />
-                    <Route path="/user" component={User} loggedInUser={loggedInUser} roles={["user"]} />
+                    <Route path="/admin" component={() =><Admin {...this.props}/>} loggedInUser={loggedInUser} roles={["admin"]} />
+                    <Route path="/user" component={() => <User {...this.props}/>} loggedInUser={loggedInUser} roles={["user"]} />
                     <Header loggedInUser={loggedInUser}/>
                 </Switch>
             </BrowserRouter>
@@ -53,4 +24,24 @@ class Routes extends React.Component{
     }
 }
 
-export default Routes;
+function componentDidMount(){
+    /*
+        mock the api using the following command
+        json-server --watch db.json -d 1000
+    */
+    const url = 'http://localhost:5000/users';
+    fetch(url,{
+        headers:{
+            method:'GET'
+        }
+    }).then(res =>res.json()).then(data =>{
+        const {store:{updateState}} = this.props;
+        updateState('users',data)
+        this.props.setLoggedIn(data[0]);
+    });
+}
+
+export default compose(
+    withState('loggedInUser','setLoggedIn',undefined),
+    lifecycle({componentDidMount})
+)(Routes)
